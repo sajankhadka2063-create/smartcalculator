@@ -1,0 +1,998 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f5f7fa">
+
+    <title>SmartCalculator | Sajan Khadka</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<main class="app-container">
+
+    <section class="calculator" id="calculator">
+
+        <!-- HEADER -->
+        <header class="calculator-header">
+
+            <div class="status-bar">
+                <span id="clock">9:41</span>
+            </div>
+
+            <nav class="toolbar">
+
+                <button class="icon-btn" id="fullscreenBtn"
+                    title="Fullscreen">⛶</button>
+
+                <div class="toolbar-center">
+
+                    <button class="toolbar-tab active"
+                        data-view="calculatorView" title="Calculator">
+                        =
+                    </button>
+
+                    <button class="toolbar-tab"
+                        data-view="historyView" title="History">
+                        ▦
+                    </button>
+
+                </div>
+
+                <!-- THREE DOT MENU -->
+                <div class="menu-container">
+
+                    <button class="icon-btn menu-trigger"
+                        id="menuBtn"
+                        aria-label="More options"
+                        aria-expanded="false">
+                        ⋮
+                    </button>
+
+                    <div class="dropdown-menu hidden" id="dropdownMenu">
+
+                        <button class="menu-item" data-open="calculatorView">
+                            <span>▣</span> Calculator
+                        </button>
+
+                        <!-- NEW SCIENTIFIC CALCULATOR OPTION -->
+                        <button class="menu-item"
+                            data-open="scientificView"
+                            id="scientificMenuBtn">
+                            <span>ƒx</span> Scientific Calculator
+                        </button>
+
+                        <button class="menu-item" data-open="converterView">
+                            <span>⇄</span> Converter
+                        </button>
+
+                        <button class="menu-item" data-open="historyView">
+                            <span>▦</span> History
+                        </button>
+
+                        <div class="menu-divider"></div>
+
+                        <button class="menu-item" data-open="settingsView">
+                            <span>⚙</span> Settings
+                        </button>
+
+                        <button class="menu-item" id="menuThemeBtn">
+                            <span>◐</span> Change Theme
+                        </button>
+
+                        <div class="menu-divider"></div>
+
+                        <div class="menu-version">
+                            SmartCalculator v2.3.0
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </nav>
+
+        </header>
+
+
+        <!-- STANDARD CALCULATOR VIEW -->
+        <section class="app-view" id="calculatorView">
+
+            <div class="display">
+
+                <div class="expression" id="expression">0</div>
+
+                <div class="result" id="result">= 0</div>
+
+            </div>
+
+            <div class="keypad">
+
+                <button class="key utility" data-action="clear">C</button>
+
+                <button class="key utility" data-action="delete">⌫</button>
+
+                <button class="key operator" data-value="/">/</button>
+
+                <button class="key operator" data-value="*">×</button>
+
+                <button class="key number" data-value="7">7</button>
+                <button class="key number" data-value="8">8</button>
+                <button class="key number" data-value="9">9</button>
+
+                <button class="key operator" data-value="-">−</button>
+
+                <button class="key number" data-value="4">4</button>
+                <button class="key number" data-value="5">5</button>
+                <button class="key number" data-value="6">6</button>
+
+                <button class="key operator" data-value="+">+</button>
+
+                <button class="key number" data-value="1">1</button>
+                <button class="key number" data-value="2">2</button>
+                <button class="key number" data-value="3">3</button>
+
+                <button class="key equals" data-action="calculate">=</button>
+
+                <button class="key special" data-action="sign">±</button>
+                <button class="key number" data-value="0">0</button>
+                <button class="key number" data-value=".">.</button>
+
+            </div>
+
+        </section>
+
+
+        <!-- SCIENTIFIC CALCULATOR VIEW -->
+        <section class="app-view scientific-view hidden"
+            id="scientificView">
+
+            <div class="scientific-heading">
+
+                <div>
+                    <h2>Scientific Calculator</h2>
+                    <p>Advanced mathematical calculations</p>
+                </div>
+
+                <button class="scientific-back-btn"
+                    id="scientificBackBtn"
+                    title="Back to Calculator">
+                    ←
+                </button>
+
+            </div>
+
+            <!-- SCIENTIFIC DISPLAY -->
+            <div class="display scientific-display">
+
+                <div class="scientific-expression"
+                    id="scientificExpression">
+                    0
+                </div>
+
+                <div class="scientific-result"
+                    id="scientificResult">
+                    = 0
+                </div>
+
+            </div>
+
+            <!-- ANGLE MODE -->
+            <div class="scientific-toolbar">
+
+                <div class="angle-switch">
+
+                    <button class="angle-btn active"
+                        id="degreeBtn"
+                        data-angle="DEG">
+                        DEG
+                    </button>
+
+                    <button class="angle-btn"
+                        id="radianBtn"
+                        data-angle="RAD">
+                        RAD
+                    </button>
+
+                </div>
+
+                <span class="scientific-mode-label">
+                    SCIENTIFIC MODE
+                </span>
+
+            </div>
+
+            <!-- SCIENTIFIC KEYPAD -->
+            <div class="scientific-keypad"
+                id="scientificKeypad">
+
+                <!-- ROW 1 -->
+                <button class="sci-key sci-function"
+                    data-sci="second">
+                    2nd
+                </button>
+
+                <button class="sci-key sci-function"
+                    data-sci="pi">
+                    π
+                </button>
+
+                <button class="sci-key sci-function"
+                    data-sci="e">
+                    e
+                </button>
+
+                <button class="sci-key sci-function"
+                    data-sci="clear">
+                    AC
+                </button>
+
+                <button class="sci-key sci-function"
+                    data-sci="delete">
+                    ⌫
+                </button>
+
+
+                <!-- ROW 2 -->
+                <button class="sci-key sci-function"
+                    data-sci="square">
+                    x²
+                </button>
+
+                <button class="sci-key sci-function"
+                    data-sci="reciprocal">
+                    1/x
+                </button>
+
+                <button class="sci-key sci-function"
+                    data-sci="abs">
+                    |x|
+                </button>
+
+                <button class="sci-key sci-function"
+                    data-sci="exp">
+                    exp
+                </button>
+
+                <button class="sci-key sci-function"
+                    data-sci="mod">
+                    mod
+                </button>
+
+
+                <!-- ROW 3 -->
+                <button class="sci-key sci-function"
+                    data-sci="sqrt">
+                    √x
+                </button>
+
+                <button class="sci-key sci-function"
+                    data-sci="cbrt">
+                    ∛x
+                </button>
+
+                <button class="sci-key sci-function"
+                    data-sci="power">
+                    xʸ
+                </button>
+
+                <button class="sci-key sci-function"
+                    data-sci="factorial">
+                    x!
+                </button>
+
+                <button class="sci-key sci-function"
+                    data-sci="percent">
+                    %
+                </button>
+
+
+                <!-- ROW 4 -->
+                <button class="sci-key sci-function"
+                    data-sci="sin">
+                    sin
+                </button>
+
+                <button class="sci-key sci-function"
+                    data-sci="cos">
+                    cos
+                </button>
+
+                <button class="sci-key sci-function"
+                    data-sci="tan">
+                    tan
+                </button>
+
+                <button class="sci-key sci-function"
+                    data-sci="open">
+                    (
+                </button>
+
+                <button class="sci-key sci-function"
+                    data-sci="close">
+                    )
+                </button>
+
+
+                <!-- ROW 5 -->
+                <button class="sci-key sci-function"
+                    data-sci="asin">
+                    sin⁻¹
+                </button>
+
+                <button class="sci-key sci-function"
+                    data-sci="acos">
+                    cos⁻¹
+                </button>
+
+                <button class="sci-key sci-function"
+                    data-sci="atan">
+                    tan⁻¹
+                </button>
+
+                <button class="sci-key sci-function"
+                    data-sci="log">
+                    log
+                </button>
+
+                <button class="sci-key sci-function"
+                    data-sci="ln">
+                    ln
+                </button>
+
+
+                <!-- ROW 6 -->
+                <button class="sci-key sci-function"
+                    data-sci="sinh">
+                    sinh
+                </button>
+
+                <button class="sci-key sci-function"
+                    data-sci="cosh">
+                    cosh
+                </button>
+
+                <button class="sci-key sci-function"
+                    data-sci="tanh">
+                    tanh
+                </button>
+
+                <button class="sci-key sci-function"
+                    data-sci="log2">
+                    log₂
+                </button>
+
+                <button class="sci-key sci-function"
+                    data-sci="factorial">
+                    n!
+                </button>
+
+
+                <!-- ROW 7 -->
+                <button class="sci-key sci-function"
+                    data-sci="percent">
+                    %
+                </button>
+
+                <button class="sci-key sci-number"
+                    data-sci="7">
+                    7
+                </button>
+
+                <button class="sci-key sci-number"
+                    data-sci="8">
+                    8
+                </button>
+
+                <button class="sci-key sci-number"
+                    data-sci="9">
+                    9
+                </button>
+
+                <button class="sci-key sci-operator"
+                    data-sci="/">
+                    ÷
+                </button>
+
+
+                <!-- ROW 8 -->
+                <button class="sci-key sci-function"
+                    data-sci="sign">
+                    ±
+                </button>
+
+                <button class="sci-key sci-number"
+                    data-sci="4">
+                    4
+                </button>
+
+                <button class="sci-key sci-number"
+                    data-sci="5">
+                    5
+                </button>
+
+                <button class="sci-key sci-number"
+                    data-sci="6">
+                    6
+                </button>
+
+                <button class="sci-key sci-operator"
+                    data-sci="*">
+                    ×
+                </button>
+
+
+                <!-- ROW 9 -->
+                <button class="sci-key sci-function"
+                    data-sci="decimal">
+                    .
+                </button>
+
+                <button class="sci-key sci-number"
+                    data-sci="1">
+                    1
+                </button>
+
+                <button class="sci-key sci-number"
+                    data-sci="2">
+                    2
+                </button>
+
+                <button class="sci-key sci-number"
+                    data-sci="3">
+                    3
+                </button>
+
+                <button class="sci-key sci-operator"
+                    data-sci="-">
+                    −
+                </button>
+
+
+                <!-- ROW 10 -->
+                <button class="sci-key sci-function"
+                    data-sci="ans">
+                    Ans
+                </button>
+
+                <button class="sci-key sci-number"
+                    data-sci="0">
+                    0
+                </button>
+
+                <button class="sci-key sci-function"
+                    data-sci="power10">
+                    10ˣ
+                </button>
+
+                <button class="sci-key sci-equals"
+                    data-sci="calculate">
+                    =
+                </button>
+
+                <button class="sci-key sci-operator"
+                    data-sci="+">
+                    +
+                </button>
+
+            </div>
+
+            <div class="scientific-footer">
+                <span>SmartCalculator Scientific</span>
+                <span>By Sajan Khadka</span>
+            </div>
+
+        </section>
+
+
+        <!-- HISTORY VIEW -->
+        <section class="app-view history-view hidden"
+            id="historyView">
+
+            <div class="page-heading">
+
+                <div>
+                    <h2>History</h2>
+                    <p>Your recent calculations</p>
+                </div>
+
+                <button class="text-button" id="clearHistoryBtn">
+                    Clear All
+                </button>
+
+            </div>
+
+            <div id="historyList" class="history-list">
+
+                <div class="empty-state">
+                    No calculations yet.
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONVERTER VIEW -->
+        <section class="app-view converter-view hidden"
+            id="converterView">
+
+            <div class="page-heading">
+
+                <div>
+                    <h2>Converter</h2>
+                    <p>Convert anything, instantly.</p>
+                </div>
+
+            </div>
+
+            <!-- CATEGORY GRID -->
+            <div class="category-grid" id="categoryGrid">
+
+                <button class="category-card active"
+                    data-category="currency">
+                    <span class="category-icon">💱</span>
+                    <span>Currency</span>
+                </button>
+
+                <button class="category-card"
+                    data-category="length">
+                    <span class="category-icon">📏</span>
+                    <span>Length</span>
+                </button>
+
+                <button class="category-card"
+                    data-category="mass">
+                    <span class="category-icon">⚖</span>
+                    <span>Mass</span>
+                </button>
+
+                <button class="category-card"
+                    data-category="area">
+                    <span class="category-icon">▧</span>
+                    <span>Area</span>
+                </button>
+
+                <button class="category-card"
+                    data-category="time">
+                    <span class="category-icon">◷</span>
+                    <span>Time</span>
+                </button>
+
+                <button class="category-card"
+                    data-category="data">
+                    <span class="category-icon">💾</span>
+                    <span>Data</span>
+                </button>
+
+                <button class="category-card"
+                    data-category="discount">
+                    <span class="category-icon">%</span>
+                    <span>Discount</span>
+                </button>
+
+                <button class="category-card"
+                    data-category="volume">
+                    <span class="category-icon">🧪</span>
+                    <span>Volume</span>
+                </button>
+
+                <button class="category-card"
+                    data-category="number">
+                    <span class="category-icon">01</span>
+                    <span>Number System</span>
+                </button>
+
+                <button class="category-card"
+                    data-category="speed">
+                    <span class="category-icon">➤</span>
+                    <span>Speed</span>
+                </button>
+
+                <button class="category-card"
+                    data-category="temperature">
+                    <span class="category-icon">🌡</span>
+                    <span>Temperature</span>
+                </button>
+
+                <button class="category-card"
+                    data-category="bmi">
+                    <span class="category-icon">⚕</span>
+                    <span>BMI</span>
+                </button>
+
+            </div>
+
+
+            <!-- STANDARD CONVERTER -->
+            <div class="converter-panel" id="standardConverter">
+
+                <div class="converter-title">
+
+                    <h3 id="converterTitle">
+                        Currency Converter
+                    </h3>
+
+                    <span id="rateStatus" class="rate-status">
+                        Select currencies
+                    </span>
+
+                </div>
+
+                <div class="conversion-field">
+
+                    <label for="fromValue">From</label>
+
+                    <input type="number" id="fromValue"
+                        value="1" step="any"
+                        placeholder="Enter value">
+
+                    <select id="fromUnit"></select>
+
+                </div>
+
+                <button class="swap-btn" id="swapUnits"
+                    title="Swap units">
+                    ⇅
+                </button>
+
+                <div class="conversion-field">
+
+                    <label for="toValue">To</label>
+
+                    <input type="text" id="toValue"
+                        readonly placeholder="Result">
+
+                    <select id="toUnit"></select>
+
+                </div>
+
+                <div class="conversion-result"
+                    id="conversionResult">
+                    Enter a value to convert.
+                </div>
+
+                <button class="primary-button" id="convertBtn">
+                    Convert Now
+                </button>
+
+                <button class="text-button refresh-button hidden"
+                    id="refreshRatesBtn">
+                    ↻ Refresh Exchange Rates
+                </button>
+
+            </div>
+
+
+            <!-- DISCOUNT CONVERTER -->
+            <div class="converter-panel hidden"
+                id="discountConverter">
+
+                <h3>Discount Calculator</h3>
+
+                <div class="form-field">
+                    <label for="originalPrice">Original Price</label>
+
+                    <input type="number" id="originalPrice"
+                        placeholder="Enter original price"
+                        min="0">
+                </div>
+
+                <div class="form-field">
+                    <label for="discountPercent">
+                        Discount (%)
+                    </label>
+
+                    <input type="number" id="discountPercent"
+                        placeholder="Enter discount percentage"
+                        min="0" max="100" step="any">
+                </div>
+
+                <div class="result-card">
+
+                    <div>
+                        <span>Discount Amount</span>
+                        <strong id="discountAmount">0</strong>
+                    </div>
+
+                    <div>
+                        <span>Final Price</span>
+                        <strong id="finalPrice">0</strong>
+                    </div>
+
+                    <div>
+                        <span>You Save</span>
+                        <strong id="totalSavings">0</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- BMI CONVERTER -->
+            <div class="converter-panel hidden"
+                id="bmiConverter">
+
+                <h3>BMI Calculator</h3>
+
+                <div class="form-field">
+
+                    <label for="bmiWeight">Weight (kg)</label>
+
+                    <input type="number" id="bmiWeight"
+                        placeholder="Enter weight"
+                        min="0">
+
+                </div>
+
+                <div class="form-field">
+
+                    <label for="bmiHeight">Height</label>
+
+                    <div class="height-inputs">
+
+                        <input type="number" id="bmiHeight"
+                            placeholder="Centimeters"
+                            min="0">
+
+                        <select id="heightUnit">
+
+                            <option value="cm">cm</option>
+                            <option value="m">m</option>
+                            <option value="ft">ft</option>
+                            <option value="inch">inch</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <button class="primary-button" id="calculateBMI">
+                    Calculate BMI
+                </button>
+
+                <div class="result-card bmi-result">
+
+                    <span>Your BMI</span>
+
+                    <strong id="bmiValue">--</strong>
+
+                    <span id="bmiCategory">
+                        Enter your details.
+                    </span>
+
+                </div>
+
+                <p class="disclaimer">
+                    BMI is a screening measure, not a medical diagnosis.
+                </p>
+
+            </div>
+
+
+            <div class="converter-info">
+                SmartCalculator • Universal Converter
+            </div>
+
+        </section>
+
+
+        <!-- SETTINGS VIEW -->
+        <section class="app-view settings-view hidden"
+            id="settingsView">
+
+            <div class="page-heading">
+
+                <div>
+                    <h2>Settings</h2>
+                    <p>Customize your calculator</p>
+                </div>
+
+            </div>
+
+
+            <div class="settings-group">
+
+                <h3>Appearance</h3>
+
+                <div class="setting-item">
+
+                    <div>
+                        <strong>Dark Mode</strong>
+                        <p>Use dark calculator interface</p>
+                    </div>
+
+                    <label class="switch">
+                        <input type="checkbox"
+                            id="darkModeSetting">
+                        <span class="slider"></span>
+                    </label>
+
+                </div>
+
+                <div class="setting-item">
+
+                    <div>
+                        <strong>Thousands Separator</strong>
+                        <p>Format numbers with commas</p>
+                    </div>
+
+                    <label class="switch">
+                        <input type="checkbox"
+                            id="separatorSetting" checked>
+                        <span class="slider"></span>
+                    </label>
+
+                </div>
+
+                <div class="setting-item">
+
+                    <div>
+                        <strong>Decimal Precision</strong>
+                        <p>Number of decimal places</p>
+                    </div>
+
+                    <select id="precisionSetting"
+                        class="setting-select">
+
+                        <option value="2">2</option>
+                        <option value="4">4</option>
+                        <option value="6">6</option>
+                        <option value="8">8</option>
+                        <option value="10">10</option>
+                        <option value="12">12</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="settings-group">
+
+                <h3>Calculator</h3>
+
+                <div class="setting-item">
+
+                    <div>
+                        <strong>Button Sound</strong>
+                        <p>Play sound on button press</p>
+                    </div>
+
+                    <label class="switch">
+                        <input type="checkbox"
+                            id="soundSetting">
+                        <span class="slider"></span>
+                    </label>
+
+                </div>
+
+                <div class="setting-item">
+
+                    <div>
+                        <strong>Keyboard Support</strong>
+                        <p>Use physical keyboard</p>
+                    </div>
+
+                    <label class="switch">
+                        <input type="checkbox"
+                            id="keyboardSetting" checked>
+                        <span class="slider"></span>
+                    </label>
+
+                </div>
+
+                <div class="setting-item">
+
+                    <div>
+                        <strong>Calculation History</strong>
+                        <p>Save recent calculations</p>
+                    </div>
+
+                    <label class="switch">
+                        <input type="checkbox"
+                            id="historySetting" checked>
+                        <span class="slider"></span>
+                    </label>
+
+                </div>
+
+                <div class="setting-item">
+
+                    <div>
+                        <strong>Confirm Clear History</strong>
+                        <p>Ask before deleting history</p>
+                    </div>
+
+                    <label class="switch">
+                        <input type="checkbox"
+                            id="confirmSetting" checked>
+                        <span class="slider"></span>
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <div class="settings-group">
+
+                <h3>General</h3>
+
+                <div class="setting-item">
+
+                    <div>
+                        <strong>Default Opening Page</strong>
+                        <p>Choose the starting screen</p>
+                    </div>
+
+                    <select id="defaultPageSetting"
+                        class="setting-select">
+
+                        <option value="calculatorView">
+                            Calculator
+                        </option>
+
+                        <option value="converterView">
+                            Converter
+                        </option>
+
+                        <option value="historyView">
+                            History
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <button class="reset-button"
+                    id="resetSettingsBtn">
+                    Reset All Settings
+                </button>
+
+            </div>
+
+
+            <div class="about-card">
+
+                <h3>SmartCalculator</h3>
+
+                <p>Version 2.3.0</p>
+
+                <p>
+                    Developed by
+                    <strong>Sajan Khadka</strong>
+                </p>
+
+                <p>Smart tools. Simple calculations.</p>
+
+            </div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer class="calculator-footer">
+
+            <span>SmartCalculator</span>
+
+            <span>By Sajan Khadka</span>
+
+        </footer>
+
+    </section>
+
+</main>
+
+<script src="script.js"></script>
+
+</body>
+</html>
